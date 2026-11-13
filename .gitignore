@@ -1,0 +1,13 @@
+# gitignore file to prevent unwanted files from being committed to the repo
+
+# compiled files
+*.o
+a.out
+*.out
+*.exe
+
+#macos files
+.DS_Store
+
+# temporary executable
+banking
