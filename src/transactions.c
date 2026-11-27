@@ -7,6 +7,8 @@ Contributor: Felix
 */
 
 #include <stdio.h>
+#include <limits.h>
+#include "transactions.h"
 #include "AccountManagement.h"
 #include "history.h"
 
@@ -21,16 +23,17 @@ int deposit(Account *account, long long amountCents)
         return 0;
     }
 
-    if (amountCents <= 0)
+    if (amountCents <= 0 || account->balanceCents > LLONG_MAX - amountCents)
     {
         return 0;
     }
 
     account->balanceCents = account->balanceCents + amountCents;
 
-    /*
-     * TODO: connect the transaction-history function here (Aris's part)
-     */
+    if (!recordTransaction(account->accountNumber, "DEPOSIT", amountCents,
+                           account->balanceCents)) {
+        printf("Warning: deposit completed, but history could not be saved.\n");
+    }
 
     return 1;
 }
@@ -58,9 +61,10 @@ int withdraw(Account *account, long long amountCents)
 
     account->balanceCents = account->balanceCents - amountCents;
 
-    /*
-     * TODO: connect the transaction-history function here (Aris's part)
-     */
+    if (!recordTransaction(account->accountNumber, "WITHDRAW", amountCents,
+                           account->balanceCents)) {
+        printf("Warning: withdrawal completed, but history could not be saved.\n");
+    }
 
     return 1;
 }
@@ -86,7 +90,8 @@ int transfer(Account *sender, Account *receiver, long long amountCents)
         return 0;
     }
 
-    if (amountCents > sender->balanceCents)
+    if (amountCents > sender->balanceCents ||
+        receiver->balanceCents > LLONG_MAX - amountCents)
     {
         return 0;
     }
@@ -94,8 +99,12 @@ int transfer(Account *sender, Account *receiver, long long amountCents)
     sender->balanceCents = sender->balanceCents - amountCents;
     receiver->balanceCents = receiver->balanceCents + amountCents;
 
-    /*
-     * TODO: connect the transaction-history function here (Aris's part)
-     */
+    int sent = recordTransaction(sender->accountNumber, "TRANSFER_OUT",
+                                 amountCents, sender->balanceCents);
+    int received = recordTransaction(receiver->accountNumber, "TRANSFER_IN",
+                                     amountCents, receiver->balanceCents);
+    if (!sent || !received) {
+        printf("Warning: transfer completed, but history could not be fully saved.\n");
+    }
     return 1;
 }

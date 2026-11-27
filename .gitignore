@@ -11,3 +11,7 @@ a.out
 
 # temporary executable
 banking
+
+/bank
+/accounts.txt
+/transactions.txt

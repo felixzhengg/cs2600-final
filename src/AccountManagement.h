@@ -15,4 +15,8 @@ typedef struct {
     long long balanceCents;
 } Account;
 
+int findAccount(const Account accounts[], int count, int accountNumber);
+int createAccount(Account accounts[], int *count);
+void viewAccount(const Account accounts[], int count);
+
 #endif
