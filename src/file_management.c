@@ -8,6 +8,10 @@ CS 2600
 #include <stdbool.h>
 #include "AccountManagement.h"
 
+
+// IMPLEMENT ERRNO
+
+
 // file management: save and load account information from files
 
 // save every account made in accounts array
@@ -54,7 +58,7 @@ int loadAccounts(Account accounts[])
         int result; // store how many account fields successfully read for current acc
 
         result = fscanf(file,
-                "User %*d:\n"
+                "\nUser %*d:\n" // skip whitespace between records before matching user
                 "Account Number: %d\n"
                 "Name of user: %99[^\n]\n"
                 "User balance: %lld",
