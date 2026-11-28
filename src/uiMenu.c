@@ -88,44 +88,52 @@ static void transactionMenu(Account accounts[], int count, int choice)
     }
 }
 
-int main(void)
+#include <stdio.h>
+
+int main()
 {
-    Account accounts[MAX_ACCOUNTS];
-    int count = loadAccounts(accounts);
-    printf("Welcome to the Banking Simulator\n");
-    printf("Loaded %d account(s).\n", count);
-    for (;;) {
-        int choice;
-        printf("\n1. Account\n2. Deposit\n3. Withdraw\n4. Quit\n");
-        printf("5. Transfer\n6. Transaction history\n");
-        int result = readInteger("Option: ", &choice);
-        if (result == -1 || (result == 1 && choice == 4)) {
-            printf("Goodbye!\n");
-            break;
-        }
-        if (result == 0) {
-            continue;
-        }
-        switch (choice) {
-            case 1:
-                accountMenu(accounts, &count);
-                break;
-            case 2:
-            case 3:
-            case 5:
-                transactionMenu(accounts, count, choice);
-                break;
-            case 6: {
-                int index = selectAccount(accounts, count,
-                                          "Enter account number: ");
-                if (index != -1) {
-                    viewHistory(accounts[index].accountNumber);
-                }
-                break;
-            }
-            default:
-                printf("Not an option.\n");
-        }
+  printf("Welcome to the Banking Simulator\nBy Ethan Caoile, Micah Kang, Ricky Paque, Aris Sarkisian, and Felix Zheng\n");
+  int quit = 0; 
+  printf("Select Option:\n");
+  printf("1. Account\n");
+  printf("2. Deposit\n");
+  printf("3. Withdraw\n");
+  printf("4. Quit\n");
+  while(!quit){
+    int x = 0;
+    
+    printf("Option: ");
+    if(scanf("%d", &x) != 1){
+      printf("Error, input integer value\n");
+      while(getchar() != '\n');
+      continue;
     }
-    return 0;
+
+    if(x == 1){
+      printf("Select 1 to create account\nSelect 2 if already have one\nOption:");
+      int z = 0;
+      if(scanf("%d", &z) != 1){
+	printf("Error, non int inputted, returning to main menu\n");
+	while(getchar() != '\n');
+	continue;
+      }
+      if(z ==1){
+	printf("New Account\n");
+      } else if(z == 2){
+	printf("Old Account\n");
+      } else {
+	printf("Not an option, returning to main menu\n");
+      }
+    } else if(x == 2){
+      printf("Deposit\n");
+    } else if(x == 3){
+      printf("Withdraw\n");
+    } else if(x == 4){
+      printf("Quitting\n");
+      quit = 1;
+    } else{
+      printf("Not an option\n");
+    }
+  }
+  return 0;
 }
