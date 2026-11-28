@@ -1,3 +1,8 @@
+/*
+Group 10
+Aris Sarkisian, Ethan Caoile, Felix Zheng, Micah Kang, Ricky Paque
+CS 2600
+*/
 #ifndef TRANSACTIONS_H
 #define TRANSACTIONS_H
 
