@@ -1,15 +1,7 @@
-CC = gcc
-CFLAGS = -std=c11 -Wall -Wextra -Wpedantic
-TARGET = bank
-SOURCES = src/uiMenu.c src/accounts.c src/input.c src/transactions.c src/file_management.c src/history.c
-HEADERS = $(wildcard src/*.h)
+# Group 10
+# Aris Sarkisian, Ethan Caoile, Felix Zheng, Micah Kang, Ricky Paque
+# CS2600 Final Project
 
-.PHONY: all clean
-
-all: $(TARGET)
-
-$(TARGET): $(SOURCES) $(HEADERS)
-	$(CC) $(CFLAGS) $(SOURCES) -o $(TARGET)
-
-clean:
-	rm -f $(TARGET) $(TARGET).exe
+# If we decide to move everything out of the src folder, remove src/ from the file paths below
+banking: src/uiMenu.c src/accounts.c src/transactions.c src/file_management.c src/history.c src/input.c
+	gcc -o banking src/uiMenu.c src/accounts.c src/transactions.c src/file_management.c src/history.c src/input.c
