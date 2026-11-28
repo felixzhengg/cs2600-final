@@ -88,7 +88,6 @@ static void transactionMenu(Account accounts[], int count, int choice)
     }
 }
 
-#include <stdio.h>
 
 int main()
 {
@@ -113,16 +112,16 @@ int main()
       printf("Select 1 to create account\nSelect 2 if already have one\nOption:");
       int z = 0;
       if(scanf("%d", &z) != 1){
-	printf("Error, non int inputted, returning to main menu\n");
-	while(getchar() != '\n');
-	continue;
+		printf("Error, non int inputted, returning to main menu\n");
+		while(getchar() != '\n');
+		continue;
       }
       if(z ==1){
-	printf("New Account\n");
+		printf("New Account\n");
       } else if(z == 2){
-	printf("Old Account\n");
+		printf("Old Account\n");
       } else {
-	printf("Not an option, returning to main menu\n");
+		printf("Not an option, returning to main menu\n");
       }
     } else if(x == 2){
       printf("Deposit\n");
