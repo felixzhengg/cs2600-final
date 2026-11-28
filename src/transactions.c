@@ -27,7 +27,10 @@ int deposit(Account *account, long long amountCents)
     {
         return 0;
     }
-
+    if (account->balanceCents < 0)
+    {
+        return 0;
+    }
     account->balanceCents = account->balanceCents + amountCents;
 
     if (!recordTransaction(account->accountNumber, "DEPOSIT", amountCents,
@@ -81,6 +84,12 @@ int transfer(Account *sender, Account *receiver, long long amountCents)
     }
 
     if (sender == receiver)
+    {
+        return 0;
+    }
+
+    if (sender->accountNumber == receiver->accountNumber ||
+        receiver->balanceCents < 0)
     {
         return 0;
     }
