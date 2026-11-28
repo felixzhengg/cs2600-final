@@ -23,7 +23,7 @@ int recordTransaction(int accountNumber,
 
     if (file == NULL)
     {
-        printf("Error opening transaction file.\n");
+        perror("Error opening transaction file");
         return 0;
     }
 
