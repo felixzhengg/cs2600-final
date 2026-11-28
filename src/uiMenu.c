@@ -88,19 +88,29 @@ static void transactionMenu(Account accounts[], int count, int choice)
     }
 }
 
+static void printMenu()
+{
+    printf("\nSelect Option:\n");
+    printf("1. Account\n");
+    printf("2. Deposit\n");
+    printf("3. Withdraw\n");
+    printf("4. Quit\n");
+    // add more for transactions, history, etc.
+}
 
 int main()
 {
-  printf("Welcome to the Banking Simulator\nBy Ethan Caoile, Micah Kang, Ricky Paque, Aris Sarkisian, and Felix Zheng\n");
-  int quit = 0; 
-  printf("Select Option:\n");
-  printf("1. Account\n");
-  printf("2. Deposit\n");
-  printf("3. Withdraw\n");
-  printf("4. Quit\n");
+    Account accounts[MAX_ACCOUNTS];
+    int count = loadAccounts(accounts);
+
+    printf("Welcome to the Banking Simulator\nBy Ethan Caoile, Micah Kang, Ricky Paque, Aris Sarkisian, and Felix Zheng\n");
+
+    int quit = 0; 
+  
   while(!quit){
     int x = 0;
     
+    printMenu();
     printf("Option: ");
     if(scanf("%d", &x) != 1){
       printf("Error, input integer value\n");
@@ -116,10 +126,26 @@ int main()
 		while(getchar() != '\n');
 		continue;
       }
+
+        int character;
+
+        do {
+            character = getchar(); // discard input through the end of the line.
+        } while (character != '\n' && character != EOF);
+
       if(z ==1){
-		printf("New Account\n");
+        accountMenu(accounts, &count);
+		// printf("New Account\n");
+
       } else if(z == 2){
-		printf("Old Account\n");
+            printf("\nAccounts:\n");
+            for (int i = 0; i < count; i++) {
+                // display only acc number/name, not balance
+                printf("%d. %s\n", accounts[i].accountNumber, accounts[i].name);
+            }
+            viewAccount(accounts, count);
+            // printf("Old Account\n");
+
       } else {
 		printf("Not an option, returning to main menu\n");
       }
